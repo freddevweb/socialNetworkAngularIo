@@ -1,0 +1,8 @@
+<span class="close" (click)="parentRemoveNote()" >X</span>
+<h2 [appHighlight]="color" > {{ note.getTitle() }} </h2>
+<p> {{ note.getContent() }} </p>
+<h6 [appHighlight]="color" class="date" ><i> {{note.getDate() | date:'dd-MM-yyyy'}} </i></h6>
+<!-- <h6 appHighlight [highlightcolor]="color" class="date" ><i> {{note.getDate() | date:'dd-MM-yyyy'}} </i></h6> --> <!-- sans le @Input('appHighlight') mais avec @Input() -->
+<p> {{ index | nieme :'note' }} </p> <!-- create pipe -->
+<!-- <p> {{ note | resume }} </p> -->
+<a routerLink="/note/{{ note.getId() }}">Voir détail</a>

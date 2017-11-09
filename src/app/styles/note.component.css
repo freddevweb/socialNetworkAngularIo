@@ -1,0 +1,23 @@
+.date {
+    
+    position: absolute;
+    bottom: 0px;
+    right: 10px;
+    
+}
+
+
+.close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    background-color: rgba(245, 245, 245, 0.733);
+    width: 20px;
+    height: 20px;
+    border-radius: 15px;
+    text-align: center;
+    color: gray;
+    font-weight: bold;
+    padding: 2px 2px;
+}
