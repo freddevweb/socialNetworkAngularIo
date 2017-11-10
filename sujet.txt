@@ -1,6 +1,6 @@
 Social Network
-Fil d’actualité : Mention j’aime (+ nombre de mention)
-Commentaires (+ nombre de commentaire) + Voir plus de commentaire
-Création d’actu avec visuel instantané
-Gestion profil
-Actualisation des données
+ - Fil d’actualité : Mention j’aime (+ nombre de mention)
+ - Commentaires (+ nombre de commentaire) + Voir plus de commentaire
+ - Création d’actu avec visuel instantané
+ - Gestion profil
+ - Actualisation des données
