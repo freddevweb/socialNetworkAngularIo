@@ -85,7 +85,7 @@ class PostRepo extends Repository {
 		}
 		$array["like"] = $resultLik;
 
-		$prepCom = $this->connection->prepare( "SELECT * from comment where postId = :postId" );
+		$prepCom = $this->connection->prepare( "SELECT comment.*, user.pseudo  from comment inner join user on user.id = comment.userId where postId = :postId " );
 		$prepCom->execute( array(
 			"postId" => $post->getId()
 		) );

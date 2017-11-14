@@ -2,8 +2,9 @@ import {UserService} from '../services/user.service';
 import {Post} from '../class/Post';
 import {User} from '../class/User';
 import {slideInDownAnimation} from '../animations/animations';
-import { Component, Input, Output, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { PostService } from '../services/post.service';
+
 
 
 
@@ -13,18 +14,18 @@ import { PostService } from '../services/post.service';
 	selector: 'app-post',
 	templateUrl: '../views/post.component.html',
 	styleUrls: ['../styles/post.component.css'],
-	providers: [PostService, UserService],
+	providers: [PostService],
 	animations: [slideInDownAnimation]
 })
 
 export class PostComponent implements OnInit { 
 	
 
-
-	@Input()
 	private user: User;
 	@Input()
 	private post: Post;
+	@Input()
+	private page:boolean; // gere l'affichage du lien des commmentaires
 
 	private comment: string = '';
 	
@@ -32,17 +33,21 @@ export class PostComponent implements OnInit {
 
 	private thisroute: string[];
 
+	private likeNumber: number;
+
+	@Output()
+  	public event: EventEmitter<number> = new EventEmitter<number>();
 
 	constructor( private userservice: UserService, private postservice: PostService){
 
+		this.user = this.userservice.getCurentUser();
 		
 	}
 
 	ngOnInit(): void {
+		this.user = this.userservice.getCurentUser();
 		this.setPostUserLike();
-		console.log(this.comment)
-		console.log(this.post);
-		
+		this.likeNumber = this.post.getArray().like;
 	}
 
 
@@ -50,15 +55,16 @@ export class PostComponent implements OnInit {
 	like(): void{
 
 		this.userservice.like( this.user.getId(), this.post.getId(), 1 ).then( (data)=>{
-			console.log(data);
 
 			if( data.json().success == true && data.json().action == "create" ){
 				this.postUserLike = true;
-
+				this.likeNumber ++;
 			}
 			if( data.json().success == true && data.json().action == "delete"){
 				this.postUserLike = false;
+				this.likeNumber --;
 			}
+			// this.parentGetPosts();
 		});
 
 	}
@@ -66,28 +72,24 @@ export class PostComponent implements OnInit {
 	addComment( event ): void{
 
 		if( event.key == "Enter" ){
-			console.log("enter");
-			// this.userservice.createComment( this.comment )
+		
+			this.userservice.createComment( this.post.getId(),  this.user.getId(), this.comment );
+			this.parentGetPostAndComments();
+			this.comment = '';
 		}
-		console.log(this.comment);
-		console.log(event);
+		
 	}
 
 	setPostUserLike(): void{
 
 		if( this.user.getPublicationLike().indexOf( this.post.getId() ) > -1 ){
+
 			this.postUserLike = true;
 		}
 	}
 
-
-	fortest():void {
-
-		let newUser = new User( "Fred", "MAS", "Fred", "fred@mail.com" );
-		newUser.setId(1);
-		newUser.setPublicationLike( [1,2] );
-		this.user = newUser;
+	parentGetPostAndComments(){
+		this.event.emit( this.post.getId() );
 	}
-
 	
 }

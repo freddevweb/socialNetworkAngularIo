@@ -1,3 +1,4 @@
+import {UserService} from './services/user.service';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -14,6 +15,7 @@ import { BodyComponent } from './components/body.component';
 import { DetailComponent } from './components/detail.component';
 import { ProfileComponent } from './components/profile.component';
 import { CommentComponent } from './components/comment.component';
+import { ConnectionComponent } from './components/connection.component';
 
 
 
@@ -26,7 +28,8 @@ import { CommentComponent } from './components/comment.component';
     BodyComponent,
     ProfileComponent,
     DetailComponent,
-    CommentComponent
+    CommentComponent,
+    ConnectionComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,7 @@ import { CommentComponent } from './components/comment.component';
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {  }

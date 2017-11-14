@@ -6,6 +6,7 @@ export class Comment {
 	private userId:number;
 	private comment: string;
 	private cdate: Date;
+	private pseudo: string;
 	
 	static lastId: number = 0;
 
@@ -46,5 +47,14 @@ export class Comment {
 	}
 	setCdate( cdate ){
 		this.cdate = cdate;
+	}
+
+	
+	// @pseudo
+	getPseudo(){
+		return this.pseudo;
+	}
+	setPseudo( pseudo ){
+		this.pseudo = pseudo;
 	}
 }

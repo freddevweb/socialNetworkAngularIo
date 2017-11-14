@@ -73,6 +73,9 @@ Flight::route('GET /users/@array', function( $array ){
     
 });
 
+Flight::route('OPTIONS /user', function( ){
+    echo json_encode(["success" => true]);
+});
 
 Flight::route('POST /user', function(){
 
@@ -212,6 +215,7 @@ Flight::route('DELETE /actual/@id', function( $id ){
 	$bdd = new BddManager();
     $PostRepo = $bdd->getPostRepo();
     $post = $PostRepo->deletePost( $newPost );
+
     
     if( $post > 0 ){
         $status["success"] = true;
@@ -236,6 +240,10 @@ Flight::route('GET /actual/@id', function( $id ){
 
 // ######################################################
 // ########################################### comment
+
+Flight::route('OPTIONS /comment', function( ){
+    echo json_encode(["success" => true]);
+});
 
 Flight::route('POST /comment', function(){
 

@@ -7,7 +7,7 @@
 		</div>
 		<!-- userpost -->
 		<div class="date">
-			{{post.publication | date:"dd-mm-yy"}}
+			{{post.publication | date:"dd-MM-yy"}}
 		</div>
 	</div>
 	<div class="content">
@@ -27,8 +27,8 @@
 				<i class="fa fa-smile-o" aria-hidden="true"></i>
 				<i class="fa fa-heart" aria-hidden="true"></i> -->
 			</div>
-			<div class="likenumber"  *ngIf="post.array['like']" >
-				<div class="round"><span > {{post.array['like']}} </span><i class="fa fa-thumbs-o-up mini" aria-hidden="true"></i> </div>
+			<div class="likenumber"  *ngIf="post.getArray().like" >
+				<div class="round"><span > {{likeNumber}} </span><i class="fa fa-thumbs-o-up mini" aria-hidden="true"></i> </div>
 			</div>
 			<!--
 			<div class="likepossibility">
@@ -45,7 +45,7 @@
 			
 		</div>
 		<div class="comments" *ngIf="post.array['comment']">
-			<a [routerLink]="['/post/' + this.post.getId()]" >
+			<a [routerLink]="['/post/' + this.post.getId()]" *ngIf="page" >
 				<span class="commentsnumber">{{post.array['comment']}}</span>
 				<span>Commentaires</span>
 			</a>
@@ -53,7 +53,7 @@
 
 		
 	</div>
-	<div class="yourComment">
+	<div class="yourComment" *ngIf="!post.array['comment'] " >
 		<!-- usercomment -->
 		<input type="text" [(ngModel)]="comment" (keypress)='addComment($event)'>
 	</div>

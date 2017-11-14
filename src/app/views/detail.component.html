@@ -2,12 +2,18 @@
 
 <div class="body">
 	<main>
-		<div class="post">
-			<app-post [post]="post" [user]="user" ></app-post>
-
-			<app-comment *ngFor="let comment of comments" ></app-comment>
-		</div>
 		
+		<div class="post">
+			<app-post *ngIf="post" [post]="post" [page]="page" (event)="getPostAndComments( $event )" ></app-post>
+			<div class="comments">
+				<app-comment *ngFor="let comment of comments" [comment]="comment" ></app-comment>
+			</div>
+		</div>
+		<a [routerLink]="['/home']">
+			<div class="back" >
+				<i class="fa fa-chevron-left" aria-hidden="true"></i> retour
+			</div>
+		</a>
 <!-- [post]="post" -->
 		
 	</main>

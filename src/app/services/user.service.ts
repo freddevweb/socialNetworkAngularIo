@@ -1,7 +1,7 @@
 
 import { Http } from "@angular/http";
 import { Injectable } from "@angular/core";
-import { User } from "../class/User";
+import { User } from '../class/User';
 import * as md5 from "md5";
 
 import 'rxjs/add/operator/toPromise';
@@ -9,12 +9,14 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable() // ce service pourra s'injecter dans un constructeur
 export class UserService {
+
+	private curentUser : User;
 	
 
 	private url: string = "http://localhost/angularJS/SocialNetwork/api/user";
 
-	constructor( private http: Http){
-		
+	constructor( private http: Http ){
+		this.fortest();
 	}
 
 	
@@ -64,7 +66,25 @@ export class UserService {
 
 		return this.http.get( this.url + "/" + userId ).toPromise();
 	}
+
+	getCurentUser( ){
+		return this.curentUser;
+	}
+	setCurentUser( curentUser ){
+		this.curentUser = curentUser;
+	}
 	
+	
+
+	fortest() {
+
+		let newUser = new User( "Fred", "MAS", "Fred", "fred@mail.com" );
+		newUser.setId(1);
+		newUser.setPublicationLike( [1,2] );
+		this.setCurentUser( newUser );
+		
+	}
+
 
 
 }

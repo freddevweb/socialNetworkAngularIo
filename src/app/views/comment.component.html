@@ -1,0 +1,22 @@
+<div class="body">
+	<div class="container">
+		<div class="left">
+			<div class="user">
+			<!-- userphoto -->
+			{{comment.pseudo }}
+			</div>
+			<div class="text" >
+				{{comment.comment }}
+			</div>
+		</div>
+		<div class="datetime">
+			<div class="date">
+				{{comment.cdate | date:'dd-MM-yy' }}
+				
+			</div>
+			<div class="hour">
+				{{comment.cdate | date:'HH:mm:ss' }}
+			</div>
+		</div>
+	</div>
+</div>

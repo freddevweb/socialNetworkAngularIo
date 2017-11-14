@@ -11,7 +11,7 @@ import { UserService } from '../services/user.service';
 	selector: 'app-signin',
 	templateUrl: '../views/signin.component.html',
 	styleUrls: ['../styles/signin.component.css'],
-	providers: [UserService],
+	providers: [],
 	animations: [slideInDownAnimation]
 })
 

@@ -11,21 +11,22 @@ import { User } from '../class/User';
   selector: 'app-body',
   templateUrl: '../views/body.component.html',
   styleUrls: ['../styles/body.component.css'],
-  providers: [PostService, UserService]
+  providers: [PostService]
 })
 
 export class BodyComponent implements OnInit{
 
 	private posts: Post[]= [];
 
-	@Input()
 	private user: User;
 
+	private page: boolean = true;
 
 
 	constructor( private postservice: PostService, private userservice: UserService){
 
 		this.getPosts();
+		this.user = this.userservice.getCurentUser();
 		
 	}
 
@@ -35,11 +36,11 @@ export class BodyComponent implements OnInit{
 	}
 
 	getPosts(): void{
-
+		this.posts = [];
 		this.postservice.getPosts().then( (data)=>{
 			
 			for( let dataPost of data.json() ){
-				console.log(dataPost);
+				
 				const newPost : Post = new Post( dataPost.userId , dataPost.texte );
 				newPost.setId( dataPost.id);
 				newPost.setPublication( dataPost.publication );

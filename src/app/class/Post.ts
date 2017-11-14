@@ -5,7 +5,11 @@ export class Post {
 	private userId:string;
 	private texte:string;
 	private publication: Date;
-	private array: Array<any>;
+	private array: {
+		user: string,
+		like: number,
+		comment: number
+	};
 
 	constructor( userId: string, texte: string ){
 

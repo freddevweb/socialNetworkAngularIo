@@ -18,19 +18,17 @@ import {Comment} from '../class/Comment';
 	selector: 'app-detail',
 	templateUrl: '../views/detail.component.html',
 	styleUrls: ['../styles/detail.component.css'],
-	providers: [PostService, UserService ],
+	providers: [PostService ],
 	animations: [slideInDownAnimation]
 })
 
-export class DetailComponent {
+export class DetailComponent implements OnInit {
 	
-	// recuperer l id de la route
-	@Input()
 	private user: User;
-	@Input()
+	
 	private post: Post;
 	
-	private commentsAll: Comment[];
+	private comments: Comment[] = [];
 
 	// private comment: number = 0;
 
@@ -38,39 +36,52 @@ export class DetailComponent {
 
 	constructor( private route: ActivatedRoute, private postservice: PostService, private userservice: UserService ){
 		
+		// const id: number = parseInt( this.route.snapshot.paramMap.get( 'id' ), 10 );
+		// this.getPostAndComments(id);
+
+		// this.user = this.userservice.getCurentUser();
+	}
+
+	ngOnInit(): void {
 		const id: number = parseInt( this.route.snapshot.paramMap.get( 'id' ), 10 );
 		this.getPostAndComments(id);
-		this.fortest();
+		this.user = this.userservice.getCurentUser();
 	}
 
 	getPostAndComments( id ){
 		
+		this.comments = [];
+
 		this.postservice.getPost( id ).then( (data)=>{
 			let result = data.json()[0];
 
 			// create post
 			let newPost : Post = new Post( result.userId, result.texte );
+			newPost.setId( result.id );
 			newPost.setPublication( result.publication );
 			let object: { [key:string]: any } = {
 				comment : result.array["comment"].length,
 				like : result.array["like"].length,
 				user : result.array["user"]
 			};
+			
 			newPost.setArray( object );
 			this.post = newPost;
 
-			console.log(this.post);
-			let arraycompo : Comment[];
+			let usersId: number[] = [];
+
 			for(let comment of result.array["comment"]){
+
 				let newComment: Comment = new Comment( comment.postId, comment.userId,  comment.comment  );
-				newComment.setCdate( comment.cdate );
+				newComment.setCdate( new Date( comment.cdate )  );
 				newComment.setId( comment.id );
-				console.log(newComment);
-				console.log(arraycompo);
-				arraycompo.push(newComment);
+				newComment.setPseudo( comment.pseudo );
+
+				this.comments.push(newComment);
 				
 			}
-			
+			console.log(this.comments);
+
 			// console.log(usersId)
 			// this.userservice.getUser( usersId ).then( (data)=>{
 			// 	console.log(data);
@@ -89,15 +100,6 @@ export class DetailComponent {
 		})
 	}
 
-
-
-	fortest():void {
-
-		let newUser = new User( "Fred", "MAS", "Fred", "fred@mail.com" );
-		newUser.setId(1);
-		newUser.setPublicationLike( [1,2] );
-		this.user = newUser;
-	}
 
 
 

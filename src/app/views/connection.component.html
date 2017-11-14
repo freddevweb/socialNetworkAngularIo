@@ -1,0 +1,47 @@
+<div class="body">
+	<div id="connection"  class="page">
+		<div id="unconnect" >
+			<div>
+				<div class="img">
+					<img src="assets/img/infini.png" />
+				</div>
+				<h1>INFIN</h1>
+			</div>
+			<div class="menu">
+				<div (click)="this.displayForm( 'Log' );" >Login</div>
+				<div  (click)="this.displayForm( 'Sign' );"  >Signin</div>
+			</div>
+
+			<div id="forms">
+				<div id="formSignin" class="form" [class.display]="displayFormSign" >
+					<input type="text" #signPrenom placeholder="Votre prénom"/>
+					<br />
+					<input type="text" #signNom placeholder="Votre nom" />
+					<br />
+					<input type="text" #signPseudo placeholder="Votre pseudo" />
+					<br />
+					<input type="email" #signEmail placeholder="Votre email" />
+					<br />
+					<input type="password" #signPass placeholder="Votre mot de passe" />
+					<br />
+					<input type="password" #signPassR placeholder="Répétez votre mot de passe" />
+					<br />
+
+					<button (click)="signin( signPrenom.value , signNom.value , signPseudo.value , signEmail.value , signPass.value )" >Envoyer</button>
+				</div>
+
+				<div id="formLognin" class="form" [class.display]="displayFormLog" >
+					<input type="text" #logValue placeholder="Votre pseudo ou votre email" />
+					<br />
+					<input type="password" #logPass placeholder="Votre mot de passe" />
+					<br />
+					<button (click)="login( logValue.value , logPass.value )" >Envoyer</button>
+
+					<!-- <input type="text" id=""> -->
+				</div>
+			</div>
+			
+
+		</div>
+	</div>
+</div>

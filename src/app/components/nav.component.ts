@@ -1,5 +1,8 @@
 import { Component , Input , Output, EventEmitter } from '@angular/core';
-import {User} from '../class/User';
+import { Router} from '@angular/router';
+
+import { User } from '../class/User';
+import { UserService } from '../services/user.service';
 
 
 @Component({
@@ -7,16 +10,24 @@ import {User} from '../class/User';
   templateUrl: '../views/nav.component.html',
   styleUrls: [ '../styles/nav.component.css' ]
 })
+
 export class NavComponent {
   title = 'app';
 
-  @Input()
+  
   private user: User;
 
-  constructor(){
+  constructor( private userservice: UserService, private router: Router ){
     // console.log(this.user);
+    this.user = this.userservice.getCurentUser();
+
+  }
 
 
+  logout():void{
+
+    this.userservice.setCurentUser( new User( "", "", "", "") );
+    this.router.navigate(['/']);
   }
 
 }

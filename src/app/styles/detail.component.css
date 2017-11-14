@@ -16,4 +16,30 @@ main {
 	margin: auto;
 }
 
+.comments {
+	width: 90%;
+	margin:20px 5%;
+	background-color: white;
+	border: 1px solid gray;
+	border-radius: 5px;
+}
+
+.back {
+	position: fixed;
+	bottom: 50px;
+	right: 50px;
+	border: 2px solid white;
+	background-color: rgb(80, 80, 80);
+	font-size: 1em;
+	color: white;
+	padding: 10px 20px;
+	border-top-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	cursor: pointer;
+}
+.back:hover {
+	background-color: white;
+	color: rgb(80, 80, 80);
+	border-color: rgb(80, 80, 80);
+}
 

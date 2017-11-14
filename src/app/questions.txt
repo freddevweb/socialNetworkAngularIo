@@ -1,7 +1,3 @@
-dans detail.component.ts L70 push ne fonctionne pas
 
-dans post.component.html L48 pouvoir enlever le lien dynamiquement
-
-faire passer une variable dans un lien pour ne pas faire une promise
 
 

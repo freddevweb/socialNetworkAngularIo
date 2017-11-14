@@ -15,7 +15,7 @@ class CommentRepo extends Repository {
 		));
 		
 		if( $prep->rowCount() == 1 ){
-			$comment = getCommentById( $this->connection->lastInserdtId() );
+			$comment = $this->getCommentById( $this->connection->lastInsertId() );
 		}
 		else {
 			$comment = false;
@@ -44,13 +44,15 @@ class CommentRepo extends Repository {
 	}
 
 	public function getCommentsByPostId( $postId ){
-		$prep = $this->connection->prepare("SELECT * from comment where postId = :postId ");
+		$prep = $this->connection->prepare("SELECT comment.*, user.pseudo  from comment inner join user as user.id = comment.userId where postId = :postId ");
 		$prep->execute([ "postId" => $postId ]);
 		$result = $prep->fetchAll(PDO::FETCH_ASSOC);
 
 		$arrayComment = [];
 		foreach( $result as $value ){
-			array_push( $arrayComment, new Comment( $value ) );
+			$newComment = new Comment( $value );
+
+			array_push( $arrayComment, $newComment );
 		}
 
 		return $arrayComment;

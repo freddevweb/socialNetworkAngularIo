@@ -1,6 +1,5 @@
-import {Input} from '@angular/core';
 import {slideInDownAnimation} from '../animations/animations';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input, Output } from '@angular/core';
 import { Post } from '../class/Post';
 
 
@@ -8,8 +7,8 @@ import { Post } from '../class/Post';
 
 @Component({
 	selector: 'app-comment',
-	templateUrl: '../views/detail.component.html',
-	styleUrls: ['../styles/detail.component.css'],
+	templateUrl: '../views/comment.component.html',
+	styleUrls: ['../styles/comment.component.css'],
 	providers: [],
 	animations: [slideInDownAnimation]
 })
@@ -17,15 +16,13 @@ import { Post } from '../class/Post';
 export class CommentComponent {
 
 	@Input()
-	private post: Post;
+	private comment: Comment;
 
 	constructor(){
 		
 	}
 
-	ngOnInit(): void {
-		
-	}
+	
 
 	
 

@@ -5,6 +5,7 @@ class Comment extends Model implements JsonSerializable{
 	private $userId;
     private $comment;
     private $cdate;
+    private $pseudo;
 
 	// @ postId
     function getPostId(){
@@ -38,6 +39,14 @@ class Comment extends Model implements JsonSerializable{
         $this->cdate = $cdate;
     }
 
+    // @userPseudo
+    function getPseudo(){
+        return $this->pseudo;
+    }
+    function setPseudo( $pseudo ){
+        $this->pseudo = $pseudo;
+    }
+
 
     function jsonSerialize(){
         return [
@@ -45,7 +54,8 @@ class Comment extends Model implements JsonSerializable{
             "postId" => $this->postId,
             "userId" => $this->userId,
             "comment" => $this->comment,
-            "cdate" => $this->cdate
+            "cdate" => $this->cdate,
+            "pseudo" => $this->pseudo
         ];
     }
 
