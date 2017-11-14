@@ -1,0 +1,14 @@
+<app-nav></app-nav>
+
+<div class="body">
+	<main>
+		<div class="post">
+			<app-post [post]="post" [user]="user" ></app-post>
+
+			<app-comment *ngFor="let comment of comments" ></app-comment>
+		</div>
+		
+<!-- [post]="post" -->
+		
+	</main>
+</div>

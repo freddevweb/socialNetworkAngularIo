@@ -1,0 +1,101 @@
+#navbar{
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100vw;
+	height: 40px;
+	background-color: blue;
+	display: flex;
+}
+#navbarcontent {
+
+	width:  800px;
+	margin: auto;
+	display: flex;
+	justify-content: space-between;
+
+}
+
+#identity {
+	height: 40px;
+	display: flex;
+	flex-direction: column;
+}
+
+.navcontent {
+	height: 25px;
+	margin: auto;
+}
+
+#identity img {
+	height: 25px;
+	width: auto;
+	    vertical-align: top;
+}
+
+#identity h1 {
+	display: inline-block;
+	margin: 0px 0px;
+	height: 30px;
+	color: #7962ffe3;
+	vertical-align: top;
+	font-size: 1.5em;
+}
+
+#identity h1:hover {
+	/* color: #bc4d15; */ /* Old browsers */
+	/* color: linear-gradient(left, #bc4d15 0%, #fff101 51%, #bc4d15 100%); */
+	color: -moz-linear-gradient(left, #bc4d15 0%, #fff101 51%, #bc4d15 100%); /* FF3.6-15 */
+	/*  */color: -webkit-linear-gradient(left, #bc4d15 0%,#fff101 51%,#bc4d15 100%); /* Chrome10-25,Safari5.1-6 */
+	color: linear-gradient(to right, #bc4d15 0%,#fff101 51%,#bc4d15 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc4d15', endColorstr='#7db9e8',GradientType=1 );
+}
+
+
+#user {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+}
+.usercontent {
+	margin: auto;
+	height: 30px;
+	border: 1px solid rgb(38, 38, 255);
+	border-radius: 10px;
+	min-width: 40px;
+	background-color: rgb(17, 17, 255);;
+}
+
+
+
+
+
+.navigation {
+	list-style: none;
+	display: flex;
+	height: 100%;
+	margin: 0px 10px;
+}
+
+li {
+	padding-top: 10px;
+	padding-left: 5px;
+	padding-right: 5px; 
+	color: #bc4d15; 
+	color: -moz-linear-gradient(left, #bc4d15 0%, #fff101 51%, #bc4d15 100%);
+	color: -webkit-linear-gradient(left, #bc4d15 0%,#fff101 51%,#bc4d15 100%); 
+	color: linear-gradient(to right, #bc4d15 0%,#fff101 51%,#bc4d15 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc4d15', endColorstr='#7db9e8',GradientType=1 );
+
+}
+
+li:hover {
+	/* background-color: #bc4d15;  */
+	background-color: -moz-linear-gradient(left, #bc4d15 0%, #fff101 51%, #bc4d15 100%);
+	background-color: -webkit-linear-gradient(left, #bc4d15 0%,#fff101 51%,#bc4d15 100%); 
+	background-color: linear-gradient(to right, #bc4d15 0%,#fff101 51%,#bc4d15 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc4d15', endColorstr='#7db9e8',GradientType=1 );
+	color: blue;
+	
+}

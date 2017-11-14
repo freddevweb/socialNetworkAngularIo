@@ -1,0 +1,126 @@
+.container {
+
+	width: 90%;
+	margin:20px 5%;
+	background-color: white;
+	border: 1px solid gray;
+	border-radius: 5px;
+}
+.content {
+	padding: 10px;
+}
+.title {
+	margin : 10px 20px;
+	min-height: 25px;
+	border-bottom: 1px solid gray;
+	display: flex;
+	justify-content: space-between;
+	vertical-align: middle;
+}
+
+
+.content {
+	min-height: 40px;
+	margin : 0px 20px;
+}
+.content-link {
+	border: 1px solid rgba(128, 128, 128, 0.80);
+	display: none;
+}
+
+.interaction {
+	display: flex;
+	justify-content: space-between;
+	margin: 0px 10px;
+	border-top: 1px solid rgba(128, 128, 128, 0.80);
+	height: 50px;
+}
+
+.like {
+	display: flex;
+	justify-content: space-between;
+	width:25%;
+}
+
+.likenumber {
+	display: flex;
+	flex-direction: column;
+	height: 40px;
+	width:20px;
+}
+
+.likepossibility {
+	height: 50px;
+	display: flex;
+	flex-direction: row;
+	position: relative;
+	top: -50px;
+	left: -45px;
+    border: 1px solid gray;
+    border-radius: 50px;
+}
+.like-choise {
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.comments {
+
+}
+
+.fa {
+	margin: 5px 10px;
+	font-size: 25px;
+}
+.fa-heart {
+	color: red;
+}
+.fa-smile {
+	color: yellow;
+}
+.fa-thumbs-o-up {
+	color: blue;
+}
+
+.like-choise i {
+	color: rgb(85, 85, 85);
+	cursor: pointer;
+}
+
+.like-choise .fa.active {
+	display: block;
+	color: blue;
+}
+
+.fa.mini{
+	font-size: 1em;
+}
+.round {
+	background-color: blue;
+	height: 22px;
+	width: 40px;
+	border-radius: 50px;
+	display: flex;
+	margin: auto;
+	justify-content: center;
+}
+.round .fa, .round span {
+	margin: auto;
+	color: white;
+	margin: 2px 4px;
+}
+
+
+.yourComment {
+	height: 30px;
+	margin-bottom: 5px;
+	display: flex;
+	justify-content: left;
+	margin-left: 20px;
+}
+
+.yourComment input {
+	height: 20px;
+	border-radius: 20px;
+	width: 400px;
+}

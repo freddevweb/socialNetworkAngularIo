@@ -33,8 +33,15 @@ class PostRepo extends Repository {
 			) );
 			$resultCom = $prepCom->fetch(PDO::FETCH_COLUMN);
 
-			array_push( $array , $resultLik );
-			array_push( $array , $resultCom );
+			$prepUser = $this->connection->prepare( "SELECT pseudo FROM user where id = :id");
+			$prepUser->execute([
+				"id" => $value["userId"]
+			]);
+			$user = $prepUser->fetch(PDO::FETCH_COLUMN);
+			$array["user"] = $user;
+			$array["like"] = $resultLik;
+			$array["comment"] = $resultCom;
+
 			$newPost->setArray( $array );
 
 			array_push( $arrayResult, $newPost );
@@ -46,61 +53,76 @@ class PostRepo extends Repository {
 
 	public function getPost( Post $post){
 
+
+		
 		$query = "SELECT * FROM post where id = :id";
 		$res = $this->connection->prepare( $query );
 		$res->execute( array (
 			"id" => $post->getId()
 		));
 		$result = $res->fetchAll(PDO::FETCH_ASSOC);
-	
+
 		$arrayResult = [];
+		$newPost = new Post ();
+		$newPost->setId( $result[0]["id"] );
+		$newPost->setUserId( $result[0]["userId"] );
+		$newPost->setTexte( $result[0]["texte"] );
+		$newPost->setPublication( $result[0]["publication"] );
 		
-		foreach( $result as $value ){
 
-			$newPost = new Post ();
-			$newPost->setId( $value["id"] );
-			$newPost->setUserId( $value["userId"] );
-			$newPost->setTexte( $value["texte"] );
-			$newPost->setPublication( $value["publication"] );
+		$array = [];
+
+		$prepLik = $this->connection->prepare( "SELECT userId  from aim where postId = :postId" );
+		$prepLik->execute( array(
+			"postId" => $post->getId()
+		) );
+		$resultLik = $prepLik->fetchAll(PDO::FETCH_COLUMN);
+		$arrayLik = [];
+		
+		foreach( $resultLik as $like ){
 			
-			$array = [];
+			array_push( $arrayLik , $like );
+		}
+		$array["like"] = $resultLik;
 
-			$prepLik = $this->connection->prepare( "SELECT count(userId) AS count from aim where postId = :postId" );
-			$prepLik->execute( array(
-				"postId" => $value["id"]
-			) );
-			$resultLik = $prepLik->fetch(PDO::FETCH_COLUMN);
-
-			array_push( $array , $resultLik );
-
-
-			$prepCom = $this->connection->prepare( "SELECT * from comment where postId = :postId" );
-			$prepCom->execute( array(
-				"postId" => $value["id"]
-			) );
-			$resultCom = $prepCom->fetchAll(PDO::FETCH_ASSOC);
+		$prepCom = $this->connection->prepare( "SELECT * from comment where postId = :postId" );
+		$prepCom->execute( array(
+			"postId" => $post->getId()
+		) );
+		$resultCom = $prepCom->fetchAll(PDO::FETCH_ASSOC);
+		
+		$arrayComment = [];
 			
-			$arrayComment = [];
+		if( !empty( $resultCom ) ){
 
-			if( !empty( $resultCom ) ){
+			foreach( $resultCom as $valueCom ){
 
-				foreach( $resultCom as $valueCom ){
-					$newComment = new Comment();
-					$newComment->setUserId( $valueCom["id"] );
-					$newComment->setComment( $valueCom["comment"] );
-					$newComment->setCdate( $valueCom["cdate"] );
-					array_push( $arrayComment , $resultLik );
-				}
-
-				array_push( $array , $arrayComment );
-
+				$newComment = new Comment();
+				$newComment->setId( $valueCom["id"] );
+				$newComment->setUserId( $valueCom["userId"] );
+				$newComment->setComment( $valueCom["comment"] );
+				$newComment->setCdate( $valueCom["cdate"] );
+				array_push( $arrayComment , $newComment );
+				
 			}
 
-			$newPost->setArray( $array );
-
-			array_push( $arrayResult, $newPost );
+			$array["comment"] = $resultCom;
+			
 		}
 		
+		$prepUser = $this->connection->prepare( "SELECT pseudo FROM user where id = :id");
+		$prepUser->execute([
+			"id" => $result[0]["userId"]
+		]);
+		$user = $prepUser->fetch(PDO::FETCH_COLUMN);
+
+		$array["user"] = $user;
+		
+		$newPost->setArray( $array );
+
+		array_push( $arrayResult, $newPost );	
+
+
 		return $arrayResult;
 	}
 

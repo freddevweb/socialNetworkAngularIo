@@ -4,8 +4,6 @@ class UserRepo extends Repository {
 
     public function getLogin(User $user){
 
-        
-
         if( !empty( $user->getEmail() ) ){
             $value = $user->getEmail();
         }
@@ -29,14 +27,22 @@ class UserRepo extends Repository {
         $data=$pdo->fetch(PDO::FETCH_ASSOC);
 
 
-        // var_dump($data);die();
-
+        $prep = $this->connection->prepare( "SELECT postId FROM aim WHERE userId = :userId" );
+        $prep->execute([ "userId" => $data["id"] ]);
+        $dataArray=$prep->fetchAll(PDO::FETCH_COLUMN);
 
         if( empty($data) ){
             $user = false;
         }
         else {
             $user = new User( $data );
+            if( !empty($dataArray) ){
+                $array = [];
+                foreach( $dataArray as $value ){
+                    array_push( $array , $value );
+                }
+                $user->setPublicationLike( $array );
+            }
         }
         // var_dump($user);die();
         return $user;
@@ -120,7 +126,14 @@ class UserRepo extends Repository {
         return $prep->rowCount();
     }
 
+    public function getUserById( $id ){
 
+        $prep = $this->connection->prepare( "SELECT pseudo FROM user where id = :id");
+        $prep->execute([
+            "id" => $id
+        ]);
+        return $prep->fetch(PDO::FETCH_ASSOC);
+    }
     // public function userPhotoPath ( $photopath , $id ){
         
 
@@ -136,6 +149,23 @@ class UserRepo extends Repository {
     //     return $pdo->rowCount();
 
     // }
+
+    public function getUsers( $array ){
+        
+        $string = '';
+        $arrayLength = count($array);
+        var_dump($array);die();
+        foreach( $array as $value ){
+            if( $value ){
+                
+            }
+            $string += $value;
+
+        }
+
+        $prep = $this->connection->prepare( "SELECT pseudo FROM user where id = :id");
+
+    }
 
    
 

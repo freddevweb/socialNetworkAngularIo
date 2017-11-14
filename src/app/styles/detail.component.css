@@ -1,18 +1,19 @@
-div {
-	width: 200px;
-	height: 200px;
-	padding: 50px;
-	background-color: rgb(127, 172, 255);
+.body {
+	width: 100%;
+	height: 100%;
+	min-height: 100vh;
+
+	margin-top: 60px;
+	display: flex;
+
 }
 
-h2 {
-	text-align: center;
+main {
+	width: 800px;
+	height: 100%;
+	min-height: 100vh;
+
+	margin: auto;
 }
 
-p {
-	text-align: center;
-}
 
-h6 {
-	text-align: center;
-}

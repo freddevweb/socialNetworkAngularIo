@@ -1,4 +1,8 @@
 <?php
+
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT");
 session_start();
 require 'flight/Flight.php';
 require 'autoloader.php';
@@ -45,6 +49,31 @@ Flight::route('GET /user/@value/@pass', function( $value, $pass ){
     
 });
 
+Flight::route('GET /users/@array', function( $array ){
+
+    
+    
+    $status = [
+        "success" =>false,
+        "user" => []
+    ];
+        
+
+    $bdd = new BddManager();
+    $UserRepo = $bdd->getUserRepo();
+    $user = $UserRepo->getUsers( $array );
+
+        
+    if( $user != false ){
+        $status["success"] = true;
+        $status["user"] = $user;
+    }
+    var_dump($user); die();
+    echo json_encode( $status );
+    
+});
+
+
 Flight::route('POST /user', function(){
 
     $status = [
@@ -82,6 +111,12 @@ Flight::route('POST /user', function(){
     
     echo json_encode( $status );
     
+});
+
+
+
+Flight::route('OPTIONS /like/@userId/@postId/@aimType', function( $userId , $postId , $aimType ){
+    echo json_encode(["success" => true]);
 });
 
 Flight::route('PUT /like/@userId/@postId/@aimType', function( $userId , $postId , $aimType ){
@@ -123,10 +158,11 @@ Flight::route('PUT /like/@userId/@postId/@aimType', function( $userId , $postId 
 // ########################################### post
 
 Flight::route('GET /actuals', function(){
-	
+    
+    
 	$bdd = new BddManager();
-    $GameRepo = $bdd->getPostRepo();
-	$posts = $GameRepo->getPosts();
+    $PostRepo = $bdd->getPostRepo();
+	$posts = $PostRepo->getPosts();
 	
 	echo json_encode( $posts ) ;
 });
@@ -148,8 +184,6 @@ Flight::route('POST /actual', function(){
         $newPost->setUserId( $userId );
         $newPost->setTexte( $texte );
         
-        
-
         $bdd = new BddManager();
 		$PostRepo = $bdd->getPostRepo();
         $id = $PostRepo->createPost( $newPost );
@@ -166,6 +200,8 @@ Flight::route('POST /actual', function(){
 
 Flight::route('DELETE /actual/@id', function( $id ){
     
+    // securiser en demandant l'id du demandeur pour verrifier si c'est son post 
+
     $status = [
         "success" =>false
     ];
@@ -203,14 +239,54 @@ Flight::route('GET /actual/@id', function( $id ){
 
 Flight::route('POST /comment', function(){
 
-	$bdd = new BddManager();
-    $CommentRepo = $bdd->getCommentRepo();
-	$events = $CommentRepo->createComment();
+    $status = [
+        "success" => true,
+        "comment" => null
+    ];
 
-	echo json_encode( $events );
+    $postId = htmlspecialchars( FLIGHT::request()->data["postId"] );
+    $userId = htmlspecialchars( FLIGHT::request()->data["userId"] );
+    $comment = htmlspecialchars( FLIGHT::request()->data["comment"] );
+
+    $bdd = new BddManager();
+
+
+    $newComment = new Comment();
+    $newComment->setUserId( $userId );
+    $newComment->setPostId( $postId );
+    $newComment->setComment( $comment );
+	
+    $CommentRepo = $bdd->getCommentRepo();
+    $comment = $CommentRepo->createComment( $newComment );
+    
+    if( $comment != false ){
+        
+        $status["comment"] = $comment;
+        $status["success"] = true;
+    }
+    
+	echo json_encode( $status );
 });
 
-Flight::route('DELETE /comment/@id', function( $id ){
+
+Flight::route('GET /comments', function( ){
+
+    $bdd = new BddManager();
+    $CommentRepo = $bdd->getCommentRepo();
+    $comment = $CommentRepo->getComments( );
+
+});
+
+Flight::route('DELETE /comment/@id/@userId', function( $id, $userId ){
+
+	$bdd = new BddManager();
+    $CommentRepo = $bdd->getCommentRepo();
+	$event = $CommentRepo->deleteComment( intval( $id ) );
+
+	echo json_encode( $event );
+});
+
+Flight::route('GET /comment/@id', function( $id ){
 
 	$bdd = new BddManager();
     $CommentRepo = $bdd->getCommentRepo();
